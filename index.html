@@ -681,7 +681,36 @@
       font-family: var(--font-h); font-weight: 900;
       font-size: clamp(52px, 7.5vw, 108px);
       text-transform: uppercase; letter-spacing: -0.03em; line-height: .88;
-      margin-bottom: 56px;
+      margin-bottom: 0;
+    }
+    .ft-cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 28px; margin-bottom: 56px;
+      padding: 14px 28px;
+      background: var(--gold); color: #000; font-weight: 700;
+      font-family: var(--font-b); font-size: 14px;
+      text-decoration: none; border-radius: 4px;
+      transition: transform .2s, background .2s;
+    }
+    .ft-cta-btn:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+    /* Sticky floating CTA */
+    #sticky-cta {
+      position: fixed; bottom: 24px; right: 24px; z-index: 500;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px;
+      background: var(--gold); color: #000; font-weight: 700;
+      font-family: var(--font-b); font-size: 13px;
+      text-decoration: none; border-radius: 100px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .3s, transform .3s, background .2s;
+      pointer-events: none;
+    }
+    #sticky-cta.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #sticky-cta:hover { background: var(--gold-lt); }
+    @media (max-width: 640px) {
+      #sticky-cta { bottom: 16px; right: 16px; padding: 11px 18px; font-size: 12px; }
     }
 
     .ct-grid {
@@ -1210,6 +1239,10 @@
           <span class="gt">SHIP</span><br/>
           TOGETHER
         </div>
+        <a href="mailto:Ks6895216@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Let's%20Build&body=Hi%20Krishna%2C%0A%0AI'd%20like%20to%20talk%20about%3A%0A%0A-%20Project%2Frole%3A%20%0A-%20Timeline%3A%20%0A-%20Budget%2FCompensation%20range%3A%20%0A%0AThanks!"
+           class="ft-cta-btn">
+          Start a Conversation →
+        </a>
       </div>
 
       <div class="ct-grid rv">
@@ -1254,12 +1287,34 @@
     </div>
   </footer>
 
+  <!-- Sticky floating CTA -->
+  <a id="sticky-cta"
+     href="mailto:Ks6895216@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Let's%20Build&body=Hi%20Krishna%2C%0A%0AI'd%20like%20to%20talk%20about%3A%0A%0A-%20Project%2Frole%3A%20%0A-%20Timeline%3A%20%0A-%20Budget%2FCompensation%20range%3A%20%0A%0AThanks!">
+    ✉ Let's Talk
+  </a>
+
   <!-- ═══════════════════════════════════════════════════════════
        SCRIPTS
   ═══════════════════════════════════════════════════════════ -->
   <script>
   (() => {
     'use strict';
+
+    /* ── STICKY CTA VISIBILITY ──────────────────────────── */
+    const stickyCta = document.getElementById('sticky-cta');
+    const heroEl = document.querySelector('.hero');
+    const footerEl = document.querySelector('.ft');
+    if (stickyCta && heroEl && footerEl) {
+      const onScroll = () => {
+        const heroBottom = heroEl.getBoundingClientRect().bottom;
+        const footerTop = footerEl.getBoundingClientRect().top;
+        const pastHero = heroBottom < 0;
+        const beforeFooter = footerTop > window.innerHeight * 0.5;
+        stickyCta.classList.toggle('show', pastHero && beforeFooter);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
 
     /* ── LOADER ─────────────────────────────────────────── */
     const loader = document.getElementById('loader');
