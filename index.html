@@ -41,6 +41,31 @@
       --font-m:       'JetBrains Mono', monospace;
     }
 
+    /* Light theme override — applies to Projects and Footer only (Skill Matrix/About stays dark) */
+    .bento-sec, .ft {
+      --bg:           #F5F1E8;
+      --bg-card:      #FFFFFF;
+      --bg-surface:   #EFEAdd;
+      --bg-raised:    #E9E3D3;
+      --white:        #16140F;
+      --w60:          rgba(22,20,15,0.62);
+      --w40:          rgba(22,20,15,0.42);
+      --w20:          rgba(22,20,15,0.18);
+      --w10:          rgba(22,20,15,0.10);
+      --w06:          rgba(22,20,15,0.05);
+      --border:       rgba(22,20,15,0.12);
+      --gold-dim:     rgba(229,169,60,0.16);
+      --gold-glow:    rgba(229,169,60,0.30);
+      --gold-border:  rgba(229,169,60,0.45);
+    }
+    .bento-sec, .ft {
+      background: var(--bg);
+    }
+    .bento-sec .sec-ttl,
+    .ft-cta {
+      color: var(--white);
+    }
+
     ::selection { background: var(--gold); color: #000; }
     html { scroll-behavior: smooth; }
 
